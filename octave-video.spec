@@ -31,6 +31,7 @@ rm -rf %{buildroot}
 %__install -m 755 -d %{buildroot}%{_libdir}/octave/packages/
 export OCT_PREFIX=%{buildroot}%{_datadir}/octave/packages
 export OCT_ARCH_PREFIX=%{buildroot}%{_libdir}/octave/packages
+export CXXFLAGS=-D__STDC_CONSTANT_MACROS
 octave -q --eval "pkg prefix $OCT_PREFIX $OCT_ARCH_PREFIX; pkg install -verbose -nodeps -local %{pkgname}-%{version}.tar.gz"
 
 tar zxf %SOURCE0 
