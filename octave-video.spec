@@ -1,54 +1,54 @@
-%define	pkgname video
-%define name	octave-%{pkgname}
-%define version 1.0.2
-%define release %mkrel 1
+%define octpkg video
+
+# Exclude .oct files from provides
+%define __provides_exclude_from ^%{octpkglibdir}/.*.oct$
 
 Summary:	Video manipulation functions for Octave
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Source0:	%{pkgname}-%{version}.tar.gz
+Name:		octave-%{octpkg}
+Version:	1.2.3
+Release:	1
+Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 License:	BSD
 Group:		Sciences/Mathematics
-Url:		http://octave.sourceforge.net/video/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Conflicts:	octave-forge <= 20090607
-Requires:	octave >= 2.9.12
-BuildRequires:	octave-devel >= 2.9.12, MesaGL-devel, MesaGLU-devel
+Url:		https://octave.sourceforge.io/%{octpkg}/
+
+BuildRequires:	octave-devel >= 3.8.2
 BuildRequires:	ffmpeg-devel
 
+Requires:	octave(api) = %{octave_api}
+
+Requires(post): octave
+Requires(postun): octave
+
 %description
-This package provides Octave implementations of the addframe, avifile,
-aviinfo, and aviread functions in MATLAB using ffmpeg.
+A wrapper for ffmpeg's libavformat and libavcodec, implementing
+addframe, avifile, aviinfo and aviread.
+
+This package is part of community Octave-Forge collection.
 
 %prep
-%setup -q -c %{pkgname}-%{version}
-cp %SOURCE0 .
+%setup -qcT
+
+%build
+%octave_pkg_build -T
 
 %install
-rm -rf %{buildroot}
-%__install -m 755 -d %{buildroot}%{_datadir}/octave/packages/
-%__install -m 755 -d %{buildroot}%{_libdir}/octave/packages/
-export OCT_PREFIX=%{buildroot}%{_datadir}/octave/packages
-export OCT_ARCH_PREFIX=%{buildroot}%{_libdir}/octave/packages
-export CXXFLAGS=-D__STDC_CONSTANT_MACROS
-octave -q --eval "pkg prefix $OCT_PREFIX $OCT_ARCH_PREFIX; pkg install -verbose -nodeps -local %{pkgname}-%{version}.tar.gz"
-
-tar zxf %SOURCE0 
-mv %{pkgname}-%{version}/COPYING .
-mv %{pkgname}-%{version}/DESCRIPTION .
-
-%clean
-%__rm -rf %{buildroot}
+%octave_pkg_install
 
 %post
-%{_bindir}/test -x %{_bindir}/octave && %{_bindir}/octave -q -H --no-site-file --eval "pkg('rebuild');" || :
+%octave_cmd pkg rebuild
+
+%preun
+%octave_pkg_preun
 
 %postun
-%{_bindir}/test -x %{_bindir}/octave && %{_bindir}/octave -q -H --no-site-file --eval "pkg('rebuild');" || :
+%octave_cmd pkg rebuild
 
 %files
-%defattr(-,root,root)
-%doc COPYING DESCRIPTION
-%{_datadir}/octave/packages/%{pkgname}-%{version}
-%{_libdir}/octave/packages/%{pkgname}-%{version}
+%dir %{octpkglibdir}
+%{octpkglibdir}/*
+%dir %{octpkgdir}
+%{octpkgdir}/*
+%doc %{octpkg}-%{version}/NEWS
+%doc %{octpkg}-%{version}/COPYING
+
