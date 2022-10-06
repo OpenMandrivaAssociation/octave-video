@@ -1,0 +1,16 @@
+Description: Ensure that CXXFLAGS is used in compilation
+Author: Rafael Laboissiere <rafael@debian.org>
+Forwarded: https://savannah.gnu.org/bugs/index.php?55804
+Last-Update: 2020-03-05
+
+--- octave-video-2.0.0.orig/src/Makefile.in
++++ octave-video-2.0.0/src/Makefile.in
+@@ -9,7 +9,7 @@ debug : MKOCTFLAGS += -ggdb -O0
+ debug : all
+ 
+ cap_ffmpeg_wrapper.oct: cap_ffmpeg_wrapper.cc cap_ffmpeg_impl_ov.hpp
+-	$(MKOCTFILE) $(MKOCTFLAGS) @FFMPEG_CFLAGS@ @DEFS@ $< $(filter %.o, $^) @FFMPEG_LIBS@ @CPPFLAGS@
++	$(MKOCTFILE) $(MKOCTFLAGS) @FFMPEG_CFLAGS@ @DEFS@ $< $(filter %.o, $^) @FFMPEG_LIBS@ @CPPFLAGS@ @CXXFLAGS@
+ 
+ clean:
+ 	rm -f *.o *.oct octave-workspace

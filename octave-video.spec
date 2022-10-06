@@ -1,18 +1,18 @@
-%define octpkg video
-
-# Exclude .oct files from provides
-%define __provides_exclude_from ^%{octpkglibdir}/.*.oct$
+%global octpkg video
 
 Summary:	Video manipulation functions for Octave
 Name:		octave-%{octpkg}
-Version:	1.2.3
+Version:	2.0.2
 Release:	1
-Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 License:	BSD
 Group:		Sciences/Mathematics
 Url:		https://octave.sourceforge.io/%{octpkg}/
+# (ubuntu)
+Patch0:		use-cxxflags.patch
+Patch1:		octave-video-fix_ffmpeg5.patch
 
-BuildRequires:	octave-devel >= 3.8.2
+BuildRequires:	octave-devel >= 4.4.0
 BuildRequires:	ffmpeg-devel
 
 Requires:	octave(api) = %{octave_api}
@@ -26,14 +26,33 @@ addframe, avifile, aviinfo and aviread.
 
 This package is part of community Octave-Forge collection.
 
+%files
+%license COPYING
+%doc NEWS
+%dir %{octpkglibdir}
+%{octpkglibdir}/*
+%dir %{octpkgdir}
+%{octpkgdir}/*
+
+#---------------------------------------------------------------------------
+
 %prep
-%setup -qcT
+%autosetup -p1 -n %{octpkg}-%{version}
+
+# remove backup files
+#find . -name \*~ -delete
 
 %build
-%octave_pkg_build -T
+export CC=gcc
+export CXX=g++
+%set_build_flags
+%octave_pkg_build
 
 %install
 %octave_pkg_install
+
+%check
+%octave_pkg_check
 
 %post
 %octave_cmd pkg rebuild
@@ -43,12 +62,4 @@ This package is part of community Octave-Forge collection.
 
 %postun
 %octave_cmd pkg rebuild
-
-%files
-%dir %{octpkglibdir}
-%{octpkglibdir}/*
-%dir %{octpkgdir}
-%{octpkgdir}/*
-%doc %{octpkg}-%{version}/NEWS
-%doc %{octpkg}-%{version}/COPYING
 
