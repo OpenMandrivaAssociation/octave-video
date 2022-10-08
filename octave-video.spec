@@ -14,6 +14,7 @@ Patch1:		octave-video-fix_ffmpeg5.patch
 
 BuildRequires:	octave-devel >= 4.4.0
 BuildRequires:	ffmpeg-devel
+BuildRequires:	gomp-devel
 
 Requires:	octave(api) = %{octave_api}
 
