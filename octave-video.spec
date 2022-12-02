@@ -7,7 +7,7 @@ Release:	1
 Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 License:	BSD
 Group:		Sciences/Mathematics
-Url:		https://octave.sourceforge.io/%{octpkg}/
+Url:		https://packages.octave.org/%{octpkg}/
 # (ubuntu)
 Patch0:		use-cxxflags.patch
 Patch1:		octave-video-fix_ffmpeg5.patch
@@ -24,8 +24,6 @@ Requires(postun): octave
 %description
 A wrapper for ffmpeg's libavformat and libavcodec, implementing
 addframe, avifile, aviinfo and aviread.
-
-This package is part of community Octave-Forge collection.
 
 %files
 %license COPYING
