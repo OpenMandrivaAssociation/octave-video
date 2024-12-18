@@ -3,7 +3,7 @@
 Summary:	Video manipulation functions for Octave
 Name:		octave-video
 Version:	2.1.1
-Release:	3
+Release:	4
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
 Url:		https://packages.octave.org/video/
@@ -55,8 +55,7 @@ export CXX=g++
 %octave_pkg_install
 
 %check
-# FIXME disable test dut to octave crashes
-#octave_pkg_check
+%octave_pkg_check
 
 %post
 %octave_cmd pkg rebuild
