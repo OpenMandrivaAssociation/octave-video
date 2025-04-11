@@ -3,7 +3,7 @@
 Summary:	Video manipulation functions for Octave
 Name:		octave-video
 Version:	2.1.1
-Release:	5
+Release:	6
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
 Url:		https://packages.octave.org/video/
@@ -13,8 +13,11 @@ Source0:	https://github.com/Andy1978/octave-video/releases/download/%{version}/v
 BuildRequires:  octave-devel >= 4.4.0
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gomp-devel
+# tests
+BuildRequires:	lib64x265
 
 Requires:	octave(api) = %{octave_api}
+Suggests:	lib64x265
 
 Requires(post): octave
 Requires(postun): octave
