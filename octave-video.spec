@@ -22,6 +22,9 @@ Suggests:	lib64x265
 Requires(post): octave
 Requires(postun): octave
 
+%patchlist
+octave-video-2.1.1_add_missing_cassert.patch
+
 %description
 A wrapper for ffmpeg's libavformat and libavcodec, implementing
 addframe, avifile, aviinfo and aviread.
