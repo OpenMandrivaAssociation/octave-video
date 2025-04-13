@@ -14,10 +14,10 @@ BuildRequires:  octave-devel >= 4.4.0
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gomp-devel
 # tests
-BuildRequires:	lib64x265
+BuildRequires:	lib64x24
 
 Requires:	octave(api) = %{octave_api}
-Suggests:	lib64x265
+Suggests:	lib64x264
 
 Requires(post): octave
 Requires(postun): octave
