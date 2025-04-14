@@ -14,7 +14,7 @@ BuildRequires:  octave-devel >= 4.4.0
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gomp-devel
 # tests
-BuildRequires:	lib64x24
+BuildRequires:	lib64x264
 
 Requires:	octave(api) = %{octave_api}
 Suggests:	lib64x264
