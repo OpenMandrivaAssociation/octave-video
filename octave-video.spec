@@ -2,8 +2,8 @@
 
 Summary:	Video manipulation functions for Octave
 Name:		octave-video
-Version:	2.1.1
-Release:	6
+Version:	2.1.3
+Release:	1
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
 Url:		https://packages.octave.org/video/
